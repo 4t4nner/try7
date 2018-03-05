@@ -11,6 +11,15 @@ sudo mongorestore [--database dbName] --drop /dbpath
 ```
 Здесь drop - указание на источник
 
+Архивировать бд можно так (в новых версиях см. на оф. сайте https://www.mongodb.com/blog/post/archiving-and-compression-in-mongodb-tools ):
+```
+mongodump --db routes -o db
+cd db && tar -zcvf routes.tar.gz routes && rm -rf routes && cd ..
+
+```
+
+
+
 ## Установка и запуск
 1. Устанавливаем зависимости
 ```
