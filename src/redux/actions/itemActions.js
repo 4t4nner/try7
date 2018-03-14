@@ -126,6 +126,13 @@ export function editItemSuccess(item, itemType) {
         itemType: itemType
     };
 }
+export function deleteItemSuccess(item, itemType) {
+    return {
+        type: types.DELETE_ITEM_SUCCESS,
+        item,
+        itemType: itemType
+    };
+}
 
 export function setItemType(itemType) {
     return {

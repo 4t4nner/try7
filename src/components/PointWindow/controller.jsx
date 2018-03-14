@@ -19,6 +19,7 @@ class NewItemContainer extends Component {
     super(props);
 
     this.handleClickSave = this.handleClickSave.bind(this);
+    this.handleClickDelete = this.handleClickDelete.bind(this);
   }
 
     componentDidMount() {
@@ -41,11 +42,10 @@ class NewItemContainer extends Component {
         }
 
     }
-    handleDeleteSave(item) {
+    handleClickDelete(item) {
         if (this.props.item) {
             this.props.dispatch(deleteItem(item));
         }
-
     }
 
   render() {
@@ -53,7 +53,7 @@ class NewItemContainer extends Component {
     return <WindowView
         item={this.props.item}
         onSaveClick={this.handleClickSave}
-        onDeleteClick={this.handleDeleteSave}
+        onDeleteClick={this.handleClickDelete}
     /> ;
 
   }

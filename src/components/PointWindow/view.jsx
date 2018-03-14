@@ -25,6 +25,7 @@ class NewPointView extends Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.setValue = this.setValue.bind(this);
 
     }
@@ -60,6 +61,17 @@ class NewPointView extends Component {
         let id = this.props.item.id;
         this.props.onSaveClick({title, code, active,id});
         this.props.onDeleteClick({title, code, active,id});
+    }
+    handleDeleteClick(e){
+        // e.preventDefault();
+        if(this.state && this.state.code && this.state.code.trim()){
+            let title = this.state.title.trim();
+            let code =  this.state.code.trim();
+            let active = this.state.active === 'on' || this.state.active === true;
+            let id = this.props.item.id;
+
+            this.props.onDeleteClick({title, code, active,id});
+        }
     }
 
     setValue (event) {
@@ -161,11 +173,12 @@ class NewPointView extends Component {
                       </div>
                       <div className="left">
                           <button
-                              type="submit"
+                              type="button"
                               value="delete" className="btn btn-default"
                               style={{
                                   float: 'right'
                               }}
+                              onClick={this.handleDeleteClick}
                           >
                               Удалить (не реализовано)
                           </button>
