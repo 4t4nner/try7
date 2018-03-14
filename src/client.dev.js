@@ -6,6 +6,8 @@ import routes from './routes';
 import configureStore from './redux/configureStore';
 import DevTools from './components/DevTools';
 
+import './assets/sass/main.scss';
+
 const initialState = window.REDUX_INITIAL_STATE || {};
 
 const store = configureStore(initialState);
