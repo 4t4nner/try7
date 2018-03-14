@@ -3,8 +3,8 @@ import * as itemActions from "../../redux/actions/itemActions";
 // let libs = '../';
 // let log = require( libs +'log')(module);
 
-let PointModel = require('../model/route').Point;
-let RouteModel = require('../model/point').Route;
+let PointModel = require('../model/point').Point;
+let RouteModel = require('../model/route').Route;
 
 let deb = {
     deb1:1
