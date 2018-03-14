@@ -1,5 +1,5 @@
 import * as types from '../actions/action-types';
-import {addOne, getAll,updateOne} from '../../services';
+import {addOne, getAll,updateOne,deleteOne} from '../../services';
 
 export function addItem(item) {
     return  function (dispatch, getState) {
@@ -36,6 +36,25 @@ export function editItem(item) {
 
         let promise = new Promise((resolve,reject) => {
             updateOne(item, getState().commonState.itemType, resolve);
+        });
+
+        return dispatch(promise
+            .then(
+                result => {
+                    return dispatch(result);
+                },
+                error => {
+                    return error;
+                }
+            ));
+    };
+}
+
+export function deleteItem(item) {
+    return  function (dispatch, getState) {
+
+        let promise = new Promise((resolve,reject) => {
+            deleteOne(item, getState().commonState.itemType, resolve);
         });
 
         return dispatch(promise

@@ -67,6 +67,26 @@ export function editItem (req, res) {
         return res.status(200).send(itemActions.editItemSuccess(arItem,itemType));
     });
 }
+export function deleteItem (req, res) {
+
+    let itemType = res.req.originalUrl.split('/')[2];
+    itemType = itemType.substr(0,itemType.length-1);
+    let Model = getModel(req.originalUrl);
+    let arItem = req.body.arItem;
+    let resDb = Model.findOneAndRemove({id: arItem.id},arItem,{
+        returnNew: true
+    }).exec((err, item) => {
+        if (err) {
+            console.log('Error in first query');
+            return res.status(500).send('Something went wrong getting the data');
+        }
+
+        // let jItem = item.toJSON();
+
+
+        return res.status(200).send(itemActions.editItemSuccess(arItem,itemType));
+    });
+}
 
 export function addItem(req, res) {
     let Model = getModel(req.originalUrl);

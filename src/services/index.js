@@ -26,6 +26,11 @@ export function updateOne(data, itemType = 'point', callback){
     return execQuery(data,  axios.post, callback);
 
 }
+export function deleteOne(data, itemType = 'point', callback){
+    setState(itemType,'delete');
+    return execQuery(data,  axios.post, callback);
+
+}
 
 
 function execQuery(

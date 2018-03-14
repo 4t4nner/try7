@@ -1,12 +1,16 @@
 import React, {Component, PropTypes} from "react";
 
 const propTypes = {
-  onSaveClick: PropTypes.func,
+    onSaveClick: PropTypes.func,
+    onDeleteClick: PropTypes.func,
     item: PropTypes.object.isRequired
 };
 
 const defaultProps = {
-  onSaveClick: (data) => {}
+    onSaveClick: (data) => {
+    },
+    onDeleteClick: (data) => {
+    }
 };
 
 class NewPointView extends Component {
@@ -14,7 +18,7 @@ class NewPointView extends Component {
         super(props);
 
         this.state = {
-            compTitle : 'Добавить',
+            compTitle: 'Добавить',
             title: '',
             code: '',
             active: false
@@ -34,10 +38,10 @@ class NewPointView extends Component {
                 active: (newProps.item.active)
             }
             : {
-                compTitle : 'Добавить',
-                title : '',
-                code : '',
-                active : false
+                compTitle: 'Добавить',
+                title: '',
+                code: '',
+                active: false
 
             }
         );
@@ -55,6 +59,7 @@ class NewPointView extends Component {
         let active = this.state.active === 'on' || this.state.active === true;
         let id = this.props.item.id;
         this.props.onSaveClick({title, code, active,id});
+        this.props.onDeleteClick({title, code, active,id});
     }
 
     setValue (event) {
@@ -71,6 +76,9 @@ class NewPointView extends Component {
     render() {
 
         const isChecked = this.state.active;
+        const btnStyle = {
+            float: 'left'
+        };
       return (
           <div>
               <div className='col-md-8'>
@@ -113,7 +121,7 @@ class NewPointView extends Component {
                                   value="setCoordinates"
                                   className="btn btn-default"
                               >
-                                  Поставить на карте
+                                  Поставить на карте  (не реализовано)
                               </button>
                           </div>
                       </div>
@@ -137,12 +145,29 @@ class NewPointView extends Component {
                               Точка активна
                           </label>
                       </div>
-                      <div className="right">
+                      <div className="raw">
                           <button
                               type="submit"
                               value="save" className="btn btn-default"
+                              style={{
+                                  float: 'left'
+                              }}
                           >
                               Сохранить
+                          </button>
+                      </div>
+                      <div className="left">
+
+                      </div>
+                      <div className="left">
+                          <button
+                              type="submit"
+                              value="delete" className="btn btn-default"
+                              style={{
+                                  float: 'right'
+                              }}
+                          >
+                              Удалить (не реализовано)
                           </button>
                       </div>
                   </form>
