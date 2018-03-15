@@ -52,9 +52,6 @@ export function editItem (req, res) {
             return res.status(500).send('Something went wrong getting the data');
         }
 
-        // let jItem = item.toJSON();
-
-
         return res.status(200).send(itemActions.editItemSuccess(arItem,itemType));
     });
 }
@@ -70,9 +67,6 @@ export function deleteItem (req, res) {
             return res.status(500).send('Something went wrong getting the data');
         }
 
-        // let jItem = item.toJSON();
-
-
         return res.status(200).send(itemActions.deleteItemSuccess(arItem, itemType));
     });
 }
@@ -83,7 +77,6 @@ export function addItem(req, res) {
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
 
-    // let nextId = getNextSequence(Model);
     Model.findOne({})
         .select('id')
         .sort({'id': -1})
@@ -94,10 +87,10 @@ export function addItem(req, res) {
             }
 
             arItem.id = res1 ? res1._doc.id + 1 : 0;
-            Model.create(arItem, (err, res2) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(200).send(itemActions.addItemFailure(err));
+            Model.create(arItem, (err2, res2) => {
+                if (err2) {
+                    console.log(err2);
+                    return res.status(200).send(itemActions.addItemFailure(err2));
                 }
 
                 return res.status(200).send(itemActions.addItemSuccess(arItem, itemType));

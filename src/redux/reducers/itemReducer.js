@@ -4,6 +4,7 @@ import * as types from '../actions/action-types';
 const initialState = {
     items: [],
     item: false,
+    map: {},
     itemType : ''
 };
 
@@ -55,6 +56,11 @@ const itemReducer = function (state = initialState, action) {
         }
 
         case types.SET_EDIT_ITEM_STATE: {
+            return Object.assign({}, state, {item: action.item});
+        }
+
+        // MAP
+        case types.SET_NEW_MAP_POINT: {
             return Object.assign({}, state, {item: action.item});
         }
 
