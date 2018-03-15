@@ -86,21 +86,43 @@ export function deleteItem (req, res) {
     });
 }
 
+function getNextSequence(Model) {
+    let ret = Model.findOneAndUpdate({},{ $inc: { id: 1 } },
+        {
+            // query: {},
+            sort: { 'id' : -1 },
+            new: true
+        }
+    );
+
+    return ret.id;
+}
+
 export function addItem(req, res) {
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
 
+    // let nextId = getNextSequence(Model);
+    Model.findOne({})
+        .select('id')
+        .sort({'id': -1})
+        .exec(function (err, res1) {
+            if(err){
+                console.log('Error in findOneAndUpdate');
+                return res.status(500).send(itemActions.addItemFailure(err));
+            }
+            arItem.id = res1._doc.id + 1;
+            Model.create(arItem, (err, res2) => {
+                if (err) {
+                    console.log(err);
+                    return res.status(200).send(itemActions.addItemFailure(err));
+                }
 
-    let resDb = Model.update({}, (err) => {
-        if (err) {
-            console.log(err);
-            return res.status(200).send(itemActions.addItemFailure(err));
-        }
+                return res.status(200).send(itemActions.addItemSuccess(arItem, itemType));
+            });
+        });
 
-        return res.status(200).send(itemActions.addItemSuccess(arItem,itemType));
-    });
 }
-
 

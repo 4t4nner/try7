@@ -35,5 +35,6 @@ const ItemSchema = new Schema({
     }
 });
 
+
 exports.Point = mongoose.model('Point', ItemSchema);
 
