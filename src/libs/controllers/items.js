@@ -1,15 +1,6 @@
 import * as itemActions from "../../redux/actions/itemActions";
-// import * as routeActions from '../../redux/actions/routeActions';
-// let libs = '../';
-// let log = require( libs +'log')(module);
-
 let PointModel = require('../model/point').Point;
 let RouteModel = require('../model/route').Route;
-
-let deb = {
-    deb1:1
-};
-
 
 function getModel(url) {
     let itemType = url.split('/')[2];
@@ -86,18 +77,6 @@ export function deleteItem (req, res) {
     });
 }
 
-function getNextSequence(Model) {
-    let ret = Model.findOneAndUpdate({},{ $inc: { id: 1 } },
-        {
-            // query: {},
-            sort: { 'id' : -1 },
-            new: true
-        }
-    );
-
-    return ret.id;
-}
-
 export function addItem(req, res) {
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
@@ -113,7 +92,8 @@ export function addItem(req, res) {
                 console.log('Error in findOneAndUpdate');
                 return res.status(500).send(itemActions.addItemFailure(err));
             }
-            arItem.id = res1._doc.id + 1;
+
+            arItem.id = res1 ? res1._doc.id + 1 : 0;
             Model.create(arItem, (err, res2) => {
                 if (err) {
                     console.log(err);

@@ -88,106 +88,92 @@ class NewPointView extends Component {
     render() {
 
         const isChecked = this.state.active;
-        const btnStyle = {
-            float: 'left'
-        };
-      return (
-          <div>
-              <div className='col-md-8'>
-                  <h2>{this.state.compTitle}</h2>
-                  <form onSubmit={this.handleSubmit}>
-                      <div className='form-group '>
-                          <input name='title' type='text' className='form-control'
-                                 placeholder='Название маршрута'
-                                 onChange={this.setValue}
-                                 value={this.state.title}
-                          />
-                      </div>
-                      <div className='form-group'>
-                          <input name='code' type='text' className='form-control' placeholder='Код точки'
-                                 readOnly=''
-                                 onChange={this.setValue}
-                                 value={this.state.code}
-                          />
+        return (
+            <div>
+                <div className='col-md-8'>
+                    <h2>{this.state.compTitle}</h2>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className='form-group '>
+                            <input name='title' type='text' className='form-control'
+                                   placeholder='Название маршрута'
+                                   onChange={this.setValue}
+                                   value={this.state.title}
+                            />
+                        </div>
+                        <div className='form-group'>
+                            <input name='code' type='text' className='form-control' placeholder='Код точки'
+                                   readOnly=''
+                                   onChange={this.setValue}
+                                   value={this.state.code}
+                            />
 
-                      </div>
-                      <div className="row">
-                          <div className='form-group col-md-4'>
-                              <input name='lat' type='text' className='form-control' placeholder='Широта'
-                                     readOnly=''
-                                     onChange={this.setValue}
-                                     value={this.state.code}
-                              />
+                        </div>
+                        <div className="row">
+                            <div className='form-group col-md-4'>
+                                <input name='lat' type='text' className='form-control' placeholder='Широта'
+                                       readOnly=''
+                                       onChange={this.setValue}
+                                       value={this.state.code}
+                                />
 
-                          </div>
-                          <div className='form-group col-md-4'>
-                              <input name='long' type='text' className='form-control' placeholder='Долгота'
-                                     readOnly=''
-                                     onChange={this.setValue}
-                                     value={this.state.code}
-                              />
-                          </div>
-                          <div className='form-group col-md-4'>
-                              <button
-                                  type="button"
-                                  value="setCoordinates"
-                                  className="btn btn-default"
-                              >
-                                  Поставить на карте  (не реализовано)
-                              </button>
-                          </div>
-                      </div>
-                      {/*
-                      <div className="form-group">
-                          <label className="sr-only" >Email address</label>
-                          <input type="email" className="form-control" id="exampleInputEmail3" placeholder="Email">
-                      </div>
-                      <div className="form-group">
-                          <label className="sr-only" >Password</label>
-                          <input type="password" className="form-control" id="exampleInputPassword3" placeholder="Password">
-                      </div>
-                      */}
-                      <div className='checkbox left'>
-                          <label>
-                              <input type='checkbox' name='active'
-                                     checked={isChecked}
-                                     // onChange={this.setValue}
-                                     onClick={this.setValue}
-                              />
-                              Точка активна
-                          </label>
-                      </div>
-                      <div className="raw">
-                          <button
-                              type="submit"
-                              value="save" className="btn btn-default"
-                              style={{
-                                  float: 'left'
-                              }}
-                          >
-                              Сохранить
-                          </button>
-                      </div>
-                      <div className="left">
+                            </div>
+                            <div className='form-group col-md-4'>
+                                <input name='long' type='text' className='form-control' placeholder='Долгота'
+                                       readOnly=''
+                                       onChange={this.setValue}
+                                       value={this.state.code}
+                                />
+                            </div>
+                            <div className='form-group col-md-4'>
+                                <button
+                                    type="button"
+                                    value="setCoordinates"
+                                    className="btn btn-default"
+                                >
+                                    Поставить на карте (не реализовано)
+                                </button>
+                            </div>
+                        </div>
+                        <div className='checkbox left'>
+                            <label>
+                                <input type='checkbox' name='active'
+                                       checked={isChecked}
+                                       onClick={this.setValue}
+                                />
+                                Точка активна
+                            </label>
+                        </div>
+                        <div className="raw">
+                            <button
+                                type="submit"
+                                value="save" className="btn btn-default"
+                                style={{
+                                    float: 'left'
+                                }}
+                            >
+                                Сохранить
+                            </button>
+                        </div>
+                        <div className="left">
 
-                      </div>
-                      <div className="left">
-                          <button
-                              type="button"
-                              value="delete" className="btn btn-default"
-                              style={{
-                                  float: 'right'
-                              }}
-                              onClick={this.handleDeleteClick}
-                          >
-                              Удалить (не реализовано)
-                          </button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      );
-  }
+                        </div>
+                        <div className="left">
+                            <button
+                                type="button"
+                                value="delete" className="btn btn-default"
+                                style={{
+                                    float: 'right'
+                                }}
+                                onClick={this.handleDeleteClick}
+                            >
+                                Удалить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 }
 
 NewPointView.propTypes = propTypes;
