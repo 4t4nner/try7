@@ -9,6 +9,7 @@ const mapState = {
 class YMap extends React.Component {
     handleClick(e){
         let arCoord = e.get('coords');
+        // map.cursors.push('arrow');
         return false;
     }
     render() {
