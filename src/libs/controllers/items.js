@@ -45,6 +45,7 @@ export function editItem (req, res) {
     itemType = itemType.substr(0,itemType.length-1);
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
+    arItem.hash = hashCode(JSON.stringify(arItem));
     let resDb = Model.findOneAndUpdate({id: arItem.id},arItem,{
         returnNew: true
     }).exec((err, item) => {
@@ -60,7 +61,7 @@ export function deleteItem (req, res) {
 
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
-    let Model = getModel(req.originalUrl);9
+    let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
     Model.findOneAndRemove({id: arItem.id}, arItem, (err, item) => {
         if (err) {
@@ -75,6 +76,7 @@ export function deleteItem (req, res) {
 export function addItem(req, res) {
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
+    arItem.hash = hashCode(JSON.stringify(arItem));
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
 
