@@ -43,6 +43,12 @@ const itemReducer = function (state = initialState, action) {
             });
             return Object.assign({}, state, {items: arNewItems,item:action.item});
         }
+        case types.DELETE_ITEM_SUCCESS: {
+            let arNewItems = state.items.filter((item) => {
+                return item.id !== action.item.id;
+            });
+            return Object.assign({}, state, {items: arNewItems,item:false});
+        }
 
         case types.SET_NEW_ITEM_STATE: {
             return Object.assign({}, state, {item: false});

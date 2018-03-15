@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from "react";
 import {connect} from "react-redux";
 import ItemListView from "./view";
-import {itemListClick, itemsFetchData} from "redux/actions/itemActions";
+import {itemListClick, itemsFetchData} from "../../redux/actions/itemActions";
 import {hashCode} from "../../utils";
 
 const propTypes = {
