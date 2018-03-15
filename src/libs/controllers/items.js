@@ -1,6 +1,7 @@
 import * as itemActions from "../../redux/actions/itemActions";
 let PointModel = require('../model/point').Point;
 let RouteModel = require('../model/route').Route;
+import {hashCode} from '../../utils';
 
 function getModel(url) {
     let itemType = url.split('/')[2];
@@ -59,7 +60,7 @@ export function deleteItem (req, res) {
 
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
-    let Model = getModel(req.originalUrl);
+    let Model = getModel(req.originalUrl);9
     let arItem = req.body.arItem;
     Model.findOneAndRemove({id: arItem.id}, arItem, (err, item) => {
         if (err) {
