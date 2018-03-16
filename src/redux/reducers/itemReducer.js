@@ -53,6 +53,7 @@ const itemReducer = function (state = initialState, action) {
         case types.SET_NEW_ITEM_STATE: {
             return Object.assign({}, state, {item: false});
         }
+        // TODO PLACE_NEW_MAP_MARK
 
         case types.SET_EDIT_ITEM_STATE: {
             return Object.assign({}, state, {item: action.item});
