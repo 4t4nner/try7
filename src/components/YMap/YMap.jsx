@@ -1,33 +1,37 @@
 import React from "react";
-import {Map, Marker} from "yandex-map-react";
+import {YMaps,Map} from "react-yandex-maps";
+
 
 const mapState = {
-    controls: ['default'],
-    cursors: ['arrow']
+    // controls: ['default'],
+    cursors: ['arrow'],
+    center: [55.754734, 37.583314],
+    zoom: 10
+    // width: '100%'
 };
 
 class YMap extends React.Component {
     handleClick(e){
         let arCoord = e.get('coords');
-        // map.cursors.push('arrow');
+        // e.originalEvent.target.cursors.push('arrow');
         return false;
     }
     render() {
         return (
-            <Map onAPIAvailable={function () {
-                console.log('API loaded');
-            }}
-                 width={'100%'}
-                 state={mapState}
-                 center={[55.754734, 37.583314]}
-                 zoom={10}
-                 onClick={this.handleClick}
-            >
-                {/*<Marker lat={this.props.lat} lon={this.props.lon}/>*/}
-            </Map>
+            <YMaps>
+                <Map
+                    state={mapState}
+                    width={'100%'}
+                    onAPIAvailable={function () {
+                        console.log('API loaded');
+                    }}
+                    onClick={this.handleClick}
+                >
+
+                </Map>
+            </YMaps>
         );
     }
 }
 
 export default YMap;
-

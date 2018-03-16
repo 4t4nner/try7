@@ -49,9 +49,9 @@
     "react-redux": "^4.4.5",
     "react-router": "^2.8.1",
     "react-router-bootstrap": "^0.23.1",
+    "react-yandex-maps": "^2.1.4",
     "redux": "^3.6.0",
     "redux-oauth": "^2.0.5",
-    "yandex-map-react": "^1.1.1",
     "redux-thunk": "^2.1.0"
   },
   "devDependencies": {
