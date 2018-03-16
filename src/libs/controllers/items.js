@@ -1,6 +1,7 @@
 import * as itemActions from "../../redux/actions/itemActions";
 let PointModel = require('../model/point').Point;
 let RouteModel = require('../model/route').Route;
+import {hashCode} from '../../utils';
 
 function getModel(url) {
     let itemType = url.split('/')[2];
@@ -44,6 +45,7 @@ export function editItem (req, res) {
     itemType = itemType.substr(0,itemType.length-1);
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
+    arItem.hash = hashCode(JSON.stringify(arItem));
     let resDb = Model.findOneAndUpdate({id: arItem.id},arItem,{
         returnNew: true
     }).exec((err, item) => {
@@ -51,9 +53,6 @@ export function editItem (req, res) {
             console.log('Error in first query');
             return res.status(500).send('Something went wrong getting the data');
         }
-
-        // let jItem = item.toJSON();
-
 
         return res.status(200).send(itemActions.editItemSuccess(arItem,itemType));
     });
@@ -70,9 +69,6 @@ export function deleteItem (req, res) {
             return res.status(500).send('Something went wrong getting the data');
         }
 
-        // let jItem = item.toJSON();
-
-
         return res.status(200).send(itemActions.deleteItemSuccess(arItem, itemType));
     });
 }
@@ -80,10 +76,10 @@ export function deleteItem (req, res) {
 export function addItem(req, res) {
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
+    arItem.hash = hashCode(JSON.stringify(arItem));
     let itemType = res.req.originalUrl.split('/')[2];
     itemType = itemType.substr(0,itemType.length-1);
 
-    // let nextId = getNextSequence(Model);
     Model.findOne({})
         .select('id')
         .sort({'id': -1})
@@ -94,10 +90,10 @@ export function addItem(req, res) {
             }
 
             arItem.id = res1 ? res1._doc.id + 1 : 0;
-            Model.create(arItem, (err, res2) => {
-                if (err) {
-                    console.log(err);
-                    return res.status(200).send(itemActions.addItemFailure(err));
+            Model.create(arItem, (err2, res2) => {
+                if (err2) {
+                    console.log(err2);
+                    return res.status(200).send(itemActions.addItemFailure(err2));
                 }
 
                 return res.status(200).send(itemActions.addItemSuccess(arItem, itemType));

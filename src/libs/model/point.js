@@ -10,6 +10,10 @@ const ItemSchema = new Schema({
     },
     title     : {
         type    : String,
+        unique  : false
+    },
+    hash     : {
+        type    : String,
         unique  : true
     },
     code     : {

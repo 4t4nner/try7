@@ -3,7 +3,7 @@ import {connect} from 'react-redux';
 import WindowView from './view';
 // import routeWindowView from './routeView';
 import {itemsFetchData} from 'redux/actions/itemActions';
-import {addItem, editItem,deleteItem} from '../../redux/actions/itemActions';
+import {addItem, editItem,deleteItem,setItemOnMap} from '../../redux/actions/itemActions';
 import {setItemType} from 'redux/actions/itemActions';
 
 
@@ -47,6 +47,11 @@ class NewItemContainer extends Component {
             this.props.dispatch(deleteItem(item));
         }
     }
+    handleSetOnMapClick(item) {
+        if (this.props.item) {
+            this.props.dispatch(setItemOnMap(item));
+        }
+    }
 
   render() {
 
@@ -54,6 +59,7 @@ class NewItemContainer extends Component {
         item={this.props.item}
         onSaveClick={this.handleClickSave}
         onDeleteClick={this.handleClickDelete}
+        onSetOnMapClick={this.handleSetOnMapClick}
     /> ;
 
   }
