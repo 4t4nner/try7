@@ -13,6 +13,16 @@ function getModel(url) {
         );
 }
 
+/**
+ *
+ * @param doc Object
+ */
+function getResItem(doc){
+    return {
+
+    }
+}
+
 export function findAll(req, res) {
 
     let Model = getModel(req.originalUrl);
@@ -54,7 +64,7 @@ export function editItem (req, res) {
             return res.status(500).send('Something went wrong getting the data');
         }
 
-        return res.status(200).send(itemActions.editItemSuccess(arItem,itemType));
+        return res.status(200).send(itemActions.editItemSuccess(item._doc,itemType));
     });
 }
 export function deleteItem (req, res) {
@@ -96,7 +106,8 @@ export function addItem(req, res) {
                     return res.status(200).send(itemActions.addItemFailure(err2));
                 }
 
-                return res.status(200).send(itemActions.addItemSuccess(arItem, itemType));
+                // let arItemRes =
+                return res.status(200).send(itemActions.addItemSuccess(res2._doc, itemType));
             });
         });
 
