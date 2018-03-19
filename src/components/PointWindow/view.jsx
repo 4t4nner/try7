@@ -20,14 +20,18 @@ class NewPointView extends Component {
 
         this.state = {
             compTitle: 'Добавить',
-            title: '',
-            code: '',
-            active: false
+            point : {
+                coord: ['',''],
+                title: '',
+                code: '',
+                active: false
+            }
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.setValue = this.setValue.bind(this);
+        this.handleSetOnMapClick = this.handleSetOnMapClick.bind(this);
         // this.setMapCoord = this.setMapCoord.bind(this);
 
     }
@@ -36,66 +40,62 @@ class NewPointView extends Component {
         this.setState((newProps.item)
             ? {
                 compTitle: newProps.item.title,
-                title: newProps.item.title,
-                code: newProps.item.code,
-                active: (newProps.item.active)
+                point: {
+                    coord: newProps.item.coord || ['',''],
+                    title: newProps.item.title,
+                    code: newProps.item.code,
+                    active: (newProps.item.active)
+                }
             }
             : {
                 compTitle: 'Добавить',
-                title: '',
-                code: '',
-                active: false
+                point : {
+                    coord: ['',''],
+                    title: '',
+                    code: '',
+                    active: false
+                }
 
             }
         );
     }
 
-    shouldComponentUpdate(newProps, newState) {
-        return true;
-    }
+    // shouldComponentUpdate(newProps, newState) {
+    //     return true;
+    // }
 
     handleSubmit(e){
         e.preventDefault();
 
-        let title = this.state.title.trim();
-        let code =  this.state.code.trim();
-        let active = this.state.active === 'on' || this.state.active === true;
-        let id = this.props.item.id;
-        this.props.onSaveClick({title, code, active,id});
-        this.props.onDeleteClick({title, code, active,id});
+        this.props.onSaveClick(this.state.point);
     }
     handleDeleteClick(e){
         // e.preventDefault();
-        if(this.state && this.state.code && this.state.code.trim()){
-            let title = this.state.title.trim();
-            let code =  this.state.code.trim();
-            let active = this.state.active === 'on' || this.state.active === true;
-            let id = this.props.item.id;
-
-            this.props.onDeleteClick({title, code, active,id});
+        if(this.state && this.state.point && this.state.point.code){
+            this.props.onDeleteClick(this.state.point);
         }
     }
-    // setMapCoord(e){
-    //     // e.preventDefault();
-    //     if(this.state && this.state.code && this.state.code.trim()){
-    //         let title = this.state.title.trim();
-    //         let code =  this.state.code.trim();
-    //         let active = this.state.active === 'on' || this.state.active === true;
-    //         let id = this.props.item.id;
-    //
-    //         this.props.onDeleteClick({title, code, active,id});
-    //     }
-    // }
+    handleSetOnMapClick(e){
+        // e.preventDefault();
+        if(this.state && this.state.point && this.state.point.code){
+
+            this.props.onSetOnMapClick(this.state.point);
+        }
+    }
 
     setValue (event) {
-        let object = {};
+        let point = this.state.point;
         let field = event.target.name;
         if(field === 'active'){
-            object[field] = event.target.checked;
+            point[field] = event.target.checked;
+        }else if(field === 'lat'){
+            point.coord[0] = event.target.value;
+        }else if(field === 'lng'){
+            point.coord[1] = event.target.value;
         } else {
-            object[field] = event.target.value;
+            point[field] = event.target.value;
         }
-        this.setState(object);
+        this.setState({point: point});
     }
 
     render() {
@@ -110,14 +110,15 @@ class NewPointView extends Component {
                             <input name='title' type='text' className='form-control'
                                    placeholder='Название маршрута'
                                    onChange={this.setValue}
-                                   value={this.state.title}
+                                   value={this.state.point.title}
+                                   // value={1}
                             />
                         </div>
                         <div className='form-group'>
                             <input name='code' type='text' className='form-control' placeholder='Код точки'
                                    readOnly=''
                                    onChange={this.setValue}
-                                   value={this.state.code}
+                                   value={this.state.point.code}
                             />
 
                         </div>
@@ -126,15 +127,15 @@ class NewPointView extends Component {
                                 <input name='lat' type='text' className='form-control' placeholder='Широта'
                                        readOnly=''
                                        onChange={this.setValue}
-                                       value={this.state.code}
+                                       value={this.state.point.coord[0]}
                                 />
 
                             </div>
                             <div className='form-group col-md-4'>
-                                <input name='long' type='text' className='form-control' placeholder='Долгота'
+                                <input name='lng' type='text' className='form-control' placeholder='Долгота'
                                        readOnly=''
                                        onChange={this.setValue}
-                                       value={this.state.code}
+                                       value={this.state.point.coord[1]}
                                 />
                             </div>
                             <div className='form-group col-md-4'>
@@ -142,7 +143,7 @@ class NewPointView extends Component {
                                     type="button"
                                     value="setCoordinates"
                                     className="btn btn-default"
-                                    onClick={this.props.onSetOnMapClick}
+                                    onClick={this.handleSetOnMapClick}
                                 >
                                     Поставить на карте (не реализовано)
                                 </button>

@@ -47,11 +47,6 @@ class NewItemContainer extends Component {
             this.props.dispatch(deleteItem(item));
         }
     }
-    handleClickSetItemOnMap(item) {
-        if (this.props.item) {
-            this.props.dispatch(deleteItem(item));
-        }
-    }
     handleSetOnMapClick(item) {
         if (this.props.item) {
             this.props.dispatch(setItemOnMap(item));

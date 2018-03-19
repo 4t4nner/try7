@@ -43,6 +43,7 @@
     "mongoose": "^4.10.4",
     "nconf": "^0.8.4",
     "react": "^15.3.1",
+    "react-addons-linked-state-mixin": "^15.6.2",
     "react-bootstrap": "^0.30.3",
     "react-bootstrap-button-loader": "^1.0.7",
     "react-dom": "^15.3.1",

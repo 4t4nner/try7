@@ -20,11 +20,7 @@ const ItemSchema = new Schema({
         type    : String,
         unique  : true
     },
-    coord     : {
-        type    : Array,
-        unique  : false,
-        default  : []
-    },
+    coord     : mongoose.Schema.Types.Mixed,
     active: {
         type: Boolean,
         default: true

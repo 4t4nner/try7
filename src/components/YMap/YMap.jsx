@@ -1,5 +1,5 @@
 import React, {Component, PropTypes} from 'react';
-import {YMaps,Map} from 'react-yandex-maps';
+import {YMaps,Map,GeoObject, Placemark} from 'react-yandex-maps';
 import {connect} from 'react-redux';
 
 
@@ -52,12 +52,28 @@ class YMap extends Component {
             <YMaps>
                 <Map
                     state={mapState}
+                    cursor={'ARROW'}
                     width={'100%'}
                     onAPIAvailable={function () {
                         console.log('API loaded');
                     }}
                     onClick={this.handleClick}
                 >
+                    {[{
+                        "geometry": {
+                            "coordinates": [55.694843, 37.435023]
+                        },
+                        "properties": {
+                            "balloonContent": "цвет <strong>носика Гены</strong>",
+                            "iconCaption": "MSK"
+                        },
+                        "options": {
+                            "preset": "islands#greenDotIconWithCaption"
+                        }
+                    }].map((placemarkParams, i) =>
+                        <Placemark key={i} {...placemarkParams} />
+                    )}
+                />
 
                 </Map>
             </YMaps>
