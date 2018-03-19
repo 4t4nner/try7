@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import YMap from 'components/YMap';
 // import MiddleButtons from 'components/MiddleButtons';
-import ItemList from 'components/ItemList/controller';
+import ItemList from '../../components/ItemList/controller';
 // import ItemWindow from 'components/PointWindow/controller';
 import {setItemType} from 'redux/actions/itemActions';
 
@@ -26,7 +26,7 @@ class PageLayout extends Component {
     componentDidMount() {
         this.setState(Object.assign({}, this.state, {componentMounted : true}));
 
-        console.log('componentDidMount');
+        console.log('PageLayout : componentDidMount');
         let itemType = window.location.pathname;
         itemType = itemType.substr(1,itemType.length-2);
         if(itemType !== this.state.itemType){
@@ -36,6 +36,8 @@ class PageLayout extends Component {
     }
 
     componentWillReceiveProps(newProps) {
+
+        console.log('PageLayout : componentDidMount');
         if(this.state.componentMounted ){
 
             let itemType = window.location.pathname;

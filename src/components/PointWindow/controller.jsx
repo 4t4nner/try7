@@ -2,8 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import WindowView from './view';
 // import routeWindowView from './routeView';
-import {itemsFetchData} from 'redux/actions/itemActions';
-import {addItem, editItem,deleteItem,setItemOnMap} from '../../redux/actions/itemActions';
+import {addItem, editItem,deleteItem,setItemOnMap,itemsFetchData} from '../../redux/actions/itemActions';
 import {setItemType} from 'redux/actions/itemActions';
 
 
@@ -20,6 +19,7 @@ class NewItemContainer extends Component {
 
     this.handleClickSave = this.handleClickSave.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
+    this.handleSetOnMapClick = this.handleSetOnMapClick.bind(this);
   }
 
     componentDidMount() {
@@ -43,6 +43,11 @@ class NewItemContainer extends Component {
 
     }
     handleClickDelete(item) {
+        if (this.props.item) {
+            this.props.dispatch(deleteItem(item));
+        }
+    }
+    handleClickSetItemOnMap(item) {
         if (this.props.item) {
             this.props.dispatch(deleteItem(item));
         }

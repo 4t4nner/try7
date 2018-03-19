@@ -1,7 +1,7 @@
-import * as itemActions from "../../redux/actions/itemActions";
+import * as itemActions from '../../redux/actions/itemActions';
+import {hashCode} from '../../utils';
 let PointModel = require('../model/point').Point;
 let RouteModel = require('../model/route').Route;
-import {hashCode} from '../../utils';
 
 function getModel(url) {
     let itemType = url.split('/')[2];
@@ -13,15 +13,15 @@ function getModel(url) {
         );
 }
 
-/**
- *
- * @param doc Object
- */
-function getResItem(doc){
-    return {
-
-    }
-}
+// /**
+//  *
+//  * @param doc Object
+//  */
+// function getResItem(doc){
+//     return {
+//
+//     }
+// }
 
 export function findAll(req, res) {
 
@@ -94,7 +94,7 @@ export function addItem(req, res) {
         .select('id')
         .sort({'id': -1})
         .exec(function (err, res1) {
-            if(err){
+            if (err) {
                 console.log('Error in findOneAndUpdate');
                 return res.status(500).send(itemActions.addItemFailure(err));
             }
@@ -109,7 +109,7 @@ export function addItem(req, res) {
                 // let arItemRes =
                 return res.status(200).send(itemActions.addItemSuccess(res2._doc, itemType));
             });
-        });
-
+        })
+    ;
 }
 

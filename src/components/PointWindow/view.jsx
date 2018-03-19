@@ -3,6 +3,7 @@ import React, {Component, PropTypes} from "react";
 const propTypes = {
     onSaveClick: PropTypes.func,
     onDeleteClick: PropTypes.func,
+    onSetOnMapClick: PropTypes.func,
     item: PropTypes.object.isRequired
 };
 
@@ -27,6 +28,7 @@ class NewPointView extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDeleteClick = this.handleDeleteClick.bind(this);
         this.setValue = this.setValue.bind(this);
+        // this.setMapCoord = this.setMapCoord.bind(this);
 
     }
 
@@ -73,6 +75,17 @@ class NewPointView extends Component {
             this.props.onDeleteClick({title, code, active,id});
         }
     }
+    // setMapCoord(e){
+    //     // e.preventDefault();
+    //     if(this.state && this.state.code && this.state.code.trim()){
+    //         let title = this.state.title.trim();
+    //         let code =  this.state.code.trim();
+    //         let active = this.state.active === 'on' || this.state.active === true;
+    //         let id = this.props.item.id;
+    //
+    //         this.props.onDeleteClick({title, code, active,id});
+    //     }
+    // }
 
     setValue (event) {
         let object = {};
@@ -129,6 +142,7 @@ class NewPointView extends Component {
                                     type="button"
                                     value="setCoordinates"
                                     className="btn btn-default"
+                                    onClick={this.props.onSetOnMapClick}
                                 >
                                     Поставить на карте (не реализовано)
                                 </button>
