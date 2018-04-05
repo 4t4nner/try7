@@ -44,6 +44,7 @@ class NewPointView extends Component {
                     coord: newProps.item.coord || ['',''],
                     title: newProps.item.title,
                     code: newProps.item.code,
+                    id: newProps.item.id,
                     active: (newProps.item.active)
                 }
             }
@@ -53,6 +54,7 @@ class NewPointView extends Component {
                     coord: ['',''],
                     title: '',
                     code: '',
+                    id: null,
                     active: false
                 }
 
@@ -106,6 +108,7 @@ class NewPointView extends Component {
                 <div className='col-md-8'>
                     <h2>{this.state.compTitle}</h2>
                     <form onSubmit={this.handleSubmit}>
+                        <input type="hidden"/>
                         <div className='form-group '>
                             <input name='title' type='text' className='form-control'
                                    placeholder='Название маршрута'

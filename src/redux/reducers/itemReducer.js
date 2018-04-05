@@ -59,11 +59,6 @@ const itemReducer = function (state = initialState, action) {
             return Object.assign({}, state, {item: action.item});
         }
 
-        // MAP
-        case types.SET_NEW_MAP_POINT: {
-            return Object.assign({}, state, {item: action.item});
-        }
-
         default:{
             return state;
         }

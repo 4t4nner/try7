@@ -171,33 +171,6 @@ export function itemListClick(code) {
     };
 }
 
-export function setItemOnMap(item) {
-    return  function (dispatch, getState) {
-        let action = {};
-        const state = getState();
-        const itemType = state.commonState.itemType;
-        // if (code) {
-        //     const itemState = (itemType === 'point')
-        //         ? state.pointState
-        //         : state.routeState ;
-        //
-        //     const item = itemState.items.filter(item => item.code === code)[0];
-        //     action = {
-        //         type: types.SET_EDIT_ITEM_STATE,
-        //         item: item,
-        //         itemType : itemType
-        //     };
-        // } else {
-        //     action = {
-        //         type: types.SET_NEW_ITEM_STATE,
-        //         itemType : itemType
-        //     };
-        // }
-
-        return dispatch(action);
-
-    };
-}
 
 export function itemsHasErrored(bool) {
     return {

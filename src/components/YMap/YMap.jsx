@@ -34,11 +34,22 @@ class YMap extends Component {
 
         console.log('YMap : componentWillReceiveProps',[this.props, newProps]);
         // if(this.props)
+        let newState = mapState;
         if(newProps.itemType !== this.props.itemType){
-            // let itemType = window.location.pathname;
-            // itemType = itemType.substr(1,itemType.length-2);
-            // this.props.dispatch(setItemType(itemType));
+            return;
         }
+        if(newProps.action){
+            if(newProps.action.setItemCoordinates){
+                if(newProps.action.setItemCoordinates.coord && newProps.action.setItemCoordinates.coord[0]){
+                    newState.center = newProps.action.setItemCoordinates.coord;
+                }
+
+            }
+        }
+
+    }
+    handleApiAvaliable(ymaps) {
+        console.log(this.map);
     }
 
     handleClick(e){
@@ -46,39 +57,73 @@ class YMap extends Component {
         // e.originalEvent.target.cursors.push('arrow');
         return false;
     }
+    someEvent(e){
+        console.log(e);
+    }
+    getMapPoints(arPoints){
+        let arPlacemarks = null;
+
+        return arPoints.reduce((all,point)=>{
+            if(point.coord && point.coord[0]){
+                return all.push({
+                    "geometry": {
+                        "coordinates": point.coord
+                    },
+                    "properties": {
+                        "balloonContent": point.title,
+                        "iconCaption": point.code
+                    },
+                    "options": {
+                        "preset": "islands#greenDotIconWithCaption"
+                    }
+                });
+            }
+
+            else return all;
+        },[]);
+    }
     render() {
         console.log('YMap : render',[this.props, this.state]);
         return (
-            <YMaps>
+            <YMaps
+                onApiAvaliable={(ymaps) => this.handleApiAvaliable(ymaps)}
+            >
                 <Map
                     state={mapState}
                     cursor={'ARROW'}
                     width={'100%'}
-                    onAPIAvailable={function () {
+                    onAPIAvailable={function (arg) {
                         console.log('API loaded');
                     }}
                     onClick={this.handleClick}
+                    onLoad={this.someEvent}
+                    onAdd={this.someEvent}
+                    onFullscreenEnter={this.someEvent}
+                    onLocationChange={this.someEvent}
+                    onEnable={this.someEvent}
+                    onActionTick={this.someEvent}
+                    onActionBegin={this.someEvent}
+                    // instanceRef={this.setMapControlInstanceRef}
+                    ref={(map) => {this.map = map;}}
                 >
-                    {[{
-                        "geometry": {
-                            "coordinates": [55.694843, 37.435023]
-                        },
-                        "properties": {
-                            "balloonContent": "цвет <strong>носика Гены</strong>",
-                            "iconCaption": "MSK"
-                        },
-                        "options": {
-                            "preset": "islands#greenDotIconWithCaption"
-                        }
-                    }].map((placemarkParams, i) =>
+                    {this.getMapPoints(this.props.points.items).map((placemarkParams, i) =>
                         <Placemark key={i} {...placemarkParams} />
                     )}
-                />
 
                 </Map>
             </YMaps>
         );
     }
+
+    // setMapControlInstanceRef = ref => {
+    //     console.log('setMapControlInstanceRef');
+    //     this.map = ref;
+    // }
+    //
+    // setMapControlInstanceRef1 = ref => {
+    //     console.log('setMapControlInstanceRef1!!!!!!!!');
+    //     this.map = ref;
+    // }
 }
 
 YMap.propTypes = propTypes;
@@ -87,10 +132,11 @@ function mapStateToProps(state) {
 
     return {
         itemType : state.commonState.itemType,
-        pointState: state.pointState,
-        routeState: state.commonState.itemType === 'point'
+        points: state.pointState,
+        routes: state.commonState.itemType === 'point'
             ? state.routeState
             : [],//
+        map:state.mapState
     };
 }
 

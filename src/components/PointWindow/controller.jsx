@@ -2,7 +2,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import WindowView from './view';
 // import routeWindowView from './routeView';
-import {addItem, editItem,deleteItem,setItemOnMap,itemsFetchData} from '../../redux/actions/itemActions';
+import {setItemOnMap} from '../../redux/actions/mapActions';
+import {addItem, editItem,deleteItem,itemsFetchData} from '../../redux/actions/itemActions';
 import {setItemType} from 'redux/actions/itemActions';
 
 

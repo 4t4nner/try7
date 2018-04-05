@@ -145,7 +145,7 @@
 //            "arraysInArrays": true
 //        }],
         //        "newline-after-var": [1, "always"],
-        "brace-style": [2, "1tbs"],
+        "brace-style": [1, "1tbs"],
         "camelcase": [2, { "properties": "always" }],
 //        "comma-spacing": [1, { "before": false, "after": true }],
         "comma-style": [2, "last"],
