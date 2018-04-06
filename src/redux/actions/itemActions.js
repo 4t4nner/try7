@@ -142,6 +142,20 @@ export function setItemType(itemType) {
     };
 }
 
+export function setItemOnMap(item) {
+    return  function (dispatch, getState) {
+        const state = getState();
+        const itemType = state.commonState.itemType;
+
+        return dispatch({
+            type: types.SET_ITEM_TYPE,
+            item: item,
+            itemType : itemType,
+            itemStateName: itemType + 'State'
+        });
+    };
+}
+
 
 export function itemListClick(code) {
     return  function (dispatch, getState) {

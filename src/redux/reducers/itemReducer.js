@@ -31,7 +31,10 @@ const itemReducer = function (state = initialState, action) {
             newItems.push(action.item);
             return Object.assign({}, state, {
                 items: newItems,
-                item:action.item
+                item:action.item,
+                map:{action: {
+                    addItem: action.item
+                }},
             });
         }
 
@@ -42,21 +45,48 @@ const itemReducer = function (state = initialState, action) {
                 }
                 return item;
             });
-            return Object.assign({}, state, {items: arNewItems,item:action.item});
+            return Object.assign({}, state, {
+                items: arNewItems,
+                item: action.item,
+                map:{action: {
+                    editItem: action.item
+                }},
+            });
         }
         case types.DELETE_ITEM_SUCCESS: {
             let arNewItems = state.items.filter((item) => {
                 return item.id !== action.item.id;
             });
-            return Object.assign({}, state, {items: arNewItems,item:false});
+            return Object.assign({}, state, {
+                items: arNewItems,
+                item: false,
+                map:{action: {
+                    deleteItem: action.item
+                }},
+            });
         }
 
         case types.SET_NEW_ITEM_STATE: {
             return Object.assign({}, state, {item: false});
         }
 
+        case types.SET_ON_MAP: {
+            return Object.assign({}, state, {
+                map:{action: {
+                    setPointOnMap: action.item
+                }},
+            });
+        }
+
         case types.SET_EDIT_ITEM_STATE: {
             return Object.assign({}, state, {item: action.item});
+        }
+        case types.SET_MAP_POINT: {
+            return Object.assign({}, state, {
+                map:{action: {
+                    setItemCoordinates: action.item
+                }},
+            });
         }
 
         default:{

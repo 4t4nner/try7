@@ -12,7 +12,7 @@ export const SET_EDIT_ITEM_STATE = 'SET_EDIT_ITEM_STATE';
 
 
 
-export const SET_MAP_POINT = 'SET_MAP_POINT';
+export const SET_ON_MAP = 'SET_POINT_ON_MAP';
 
 export const SET_MAP_STATE = 'SET_MAP_STATE';
 export const SET_EDIT_MAP_POINT = 'SET_NEW_MAP_POINT';

@@ -6,7 +6,12 @@ import routes from './routes';
 import configureStore from './redux/configureStore';
 import DevTools from './components/DevTools';
 
+// styles
 import './assets/sass/main.scss';
+
+// non react libs
+// require('script!./assets/js/ymaps');
+
 
 const initialState = window.REDUX_INITIAL_STATE || {};
 

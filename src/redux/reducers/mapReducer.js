@@ -11,16 +11,16 @@ const defaultAction = {
 
 export default function (state = initialState, action = defaultAction) {
     switch (action.type) {
-        case types.SET_MAP_POINT: {
-            return Object.assign({}, state, {
-                action: {
-                    setItemCoordinates: action.item
-                },
-            });
-        }
-        case types.SET_MAP_STATE: {
-            return state;
-        }
+        // case types.SET_MAP_POINT: {
+        //     return Object.assign({}, state, {
+        //         action: {
+        //             setItemCoordinates: action.item
+        //         },
+        //     });
+        // }
+        // case types.SET_MAP_STATE: {
+        //     return state;
+        // }
         default:
             return state;
     }

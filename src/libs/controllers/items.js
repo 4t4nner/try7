@@ -60,16 +60,6 @@ export function editItem (req, res) {
 
     arItem.hash = hashCode(JSON.stringify(arItem));
 
-    // TODO не передается id
-    // Model.findByIdAndUpdate(id, arItem, { new: true }, function (err, tank) {
-    //
-    //     if (err) {
-    //         console.log('Error in first query');
-    //         return res.status(500).send('Something went wrong getting the data');
-    //     }
-    //     return res.status(200).send(itemActions.editItemSuccess(tank._doc,itemType));
-    // });
-    
     let resDb = Model.findOneAndUpdate({id: arItem.id},arItem,{
         new: true
     }).exec((err, item) => {

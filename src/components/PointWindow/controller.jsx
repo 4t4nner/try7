@@ -2,11 +2,11 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import WindowView from './view';
 // import routeWindowView from './routeView';
-import {setItemOnMap} from '../../redux/actions/mapActions';
+import {setItemOnMap} from '../../redux/actions/itemActions';
 import {addItem, editItem,deleteItem,itemsFetchData} from '../../redux/actions/itemActions';
 import {setItemType} from 'redux/actions/itemActions';
 
-
+//
 const propTypes = {
     dispatch: PropTypes.func.isRequired,
     fetchData: PropTypes.func.isRequired,

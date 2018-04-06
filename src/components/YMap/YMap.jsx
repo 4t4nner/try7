@@ -1,7 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import {YMaps,Map,GeoObject, Placemark} from 'react-yandex-maps';
+// import {YMaps,Map,GeoObject, Placemark} from 'react-yandex-maps';
 import {connect} from 'react-redux';
-
+import * as YMUtils from '../../utils/ymaps';
 
 const mapState = {
     // controls: ['default'],
@@ -22,12 +22,20 @@ class YMap extends Component {
     constructor(props) {
         super(props);
 
+        this.state = {};
+
         console.log('YMap : constructor', arguments);
         // this.handleClickSave = this.handleClickSave.bind(this);
     }
+
     componentDidMount() {
         console.log('YMap : componentDidMount', arguments);
-        // this.props.fetchData('/db/points');
+        YMUtils.init(this.props,
+            function (map) {
+                this.setState({map: map,update: false});
+            }.bind(this),
+            []
+        );
     }
 
     componentWillReceiveProps(newProps) {
@@ -39,91 +47,66 @@ class YMap extends Component {
             return;
         }
         if(newProps.action){
-            if(newProps.action.setItemCoordinates){
-                if(newProps.action.setItemCoordinates.coord && newProps.action.setItemCoordinates.coord[0]){
-                    newState.center = newProps.action.setItemCoordinates.coord;
-                }
 
-            }
         }
-
-    }
-    handleApiAvaliable(ymaps) {
-        console.log(this.map);
     }
 
-    handleClick(e){
-        let arCoord = e.get('coords');
-        // e.originalEvent.target.cursors.push('arrow');
+    shouldComponentUpdate(nextProps, nextState){
+        // if(typeof (nextState.update) !== 'undefined'){
+        //     return nextState.update;
+        // }
         return false;
     }
-    someEvent(e){
-        console.log(e);
-    }
-    getMapPoints(arPoints){
-        let arPlacemarks = null;
 
-        return arPoints.reduce((all,point)=>{
-            if(point.coord && point.coord[0]){
-                return all.push({
-                    "geometry": {
-                        "coordinates": point.coord
-                    },
-                    "properties": {
-                        "balloonContent": point.title,
-                        "iconCaption": point.code
-                    },
-                    "options": {
-                        "preset": "islands#greenDotIconWithCaption"
-                    }
-                });
-            }
+    componentDidUpdate(arg){
+        console.log('YMap : componentDidUpdate', arguments);
 
-            else return all;
-        },[]);
     }
+    // handleApiAvaliable(ymaps) {
+    //     console.log(this.map);
+    // }
+    //
+    // static handleClick(e){
+    //     let arCoord = e.get('coords');
+    //     // e.originalEvent.target.cursors.push('arrow');
+    //     return false;
+    // }
+    // static someEvent(e){
+    //     console.log(e);
+    // }
+    // static getMapPoints(arPoints){
+    //     let arPlacemarks = null;
+    //
+    //     return arPoints.reduce((all,point)=>{
+    //         if(point.coord && point.coord[0]){
+    //             return all.push({
+    //                 "geometry": {
+    //                     "coordinates": point.coord
+    //                 },
+    //                 "properties": {
+    //                     "balloonContent": point.title,
+    //                     "iconCaption": point.code
+    //                 },
+    //                 "options": {
+    //                     "preset": "islands#greenDotIconWithCaption"
+    //                 }
+    //             });
+    //         }
+    //
+    //         else return all;
+    //     },[]);
+    // }
     render() {
         console.log('YMap : render',[this.props, this.state]);
         return (
-            <YMaps
-                onApiAvaliable={(ymaps) => this.handleApiAvaliable(ymaps)}
-            >
-                <Map
-                    state={mapState}
-                    cursor={'ARROW'}
-                    width={'100%'}
-                    onAPIAvailable={function (arg) {
-                        console.log('API loaded');
-                    }}
-                    onClick={this.handleClick}
-                    onLoad={this.someEvent}
-                    onAdd={this.someEvent}
-                    onFullscreenEnter={this.someEvent}
-                    onLocationChange={this.someEvent}
-                    onEnable={this.someEvent}
-                    onActionTick={this.someEvent}
-                    onActionBegin={this.someEvent}
-                    // instanceRef={this.setMapControlInstanceRef}
-                    ref={(map) => {this.map = map;}}
-                >
-                    {this.getMapPoints(this.props.points.items).map((placemarkParams, i) =>
-                        <Placemark key={i} {...placemarkParams} />
-                    )}
-
-                </Map>
-            </YMaps>
+            <div id="map"
+                 style={{
+                     width: '100%',
+                     height: '85vh',
+                 }}
+            > </div>
         );
     }
-
-    // setMapControlInstanceRef = ref => {
-    //     console.log('setMapControlInstanceRef');
-    //     this.map = ref;
-    // }
-    //
-    // setMapControlInstanceRef1 = ref => {
-    //     console.log('setMapControlInstanceRef1!!!!!!!!');
-    //     this.map = ref;
-    // }
 }
 
 YMap.propTypes = propTypes;
@@ -136,7 +119,6 @@ function mapStateToProps(state) {
         routes: state.commonState.itemType === 'point'
             ? state.routeState
             : [],//
-        map:state.mapState
     };
 }
 
