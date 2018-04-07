@@ -74,8 +74,17 @@ class NewPointView extends Component {
         return (
             <div>
                 <div className='col-md-8'>
-                    <h2>{this.state.compTitle}</h2>
+                    {/*<h2>{this.state.compTitle}</h2>*/}
+                    <h2>Рассчитайте маршруты</h2>
                     <form onSubmit={this.handleSubmit}>
+
+                        <button
+                            type="button"
+                            value="delete" className="btn btn-default"
+                        >
+                            Рассчитать
+                        </button>
+                        {/*
                         <div className='form-group'>
                             <input name='title' type='text' className='form-control'
                                    placeholder='Название маршрута'
@@ -109,6 +118,9 @@ class NewPointView extends Component {
                                 Сохранить
                             </button>
                         </div>
+                        */}
+
+
                     </form>
                 </div>
             </div>
