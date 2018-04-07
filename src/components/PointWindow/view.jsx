@@ -146,9 +146,10 @@ class NewPointView extends Component {
                                     type="button"
                                     value="setCoordinates"
                                     className="btn btn-default"
+                                    style={{float: 'right'}}
                                     onClick={this.handleSetOnMapClick}
                                 >
-                                    Поставить на карте (не реализовано)
+                                    Поставить на карте
                                 </button>
                             </div>
                         </div>

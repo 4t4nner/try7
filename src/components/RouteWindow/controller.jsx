@@ -21,7 +21,7 @@ class NewItemContainer extends Component {
     }
 
     componentDidMount() {
-        this.props.fetchData('/db/routes');
+        // this.props.fetchData('/db/routes');
     }
 
     componentWillReceiveProps(newProps) {

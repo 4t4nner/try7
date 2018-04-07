@@ -11,8 +11,17 @@ class ItemLayout extends Component {
     return (
       <div className="row">
         <div className="col-md-12">
-          <h1>Управление маршрутами</h1>
-            {this.props.children}
+          <h1>Управление маршрутами и рейсами</h1>
+          <button
+              type="button"
+              value="delete" className="btn btn-default"
+              style={{
+                  float: 'right'
+              }}
+          >
+            Рассчитать
+          </button>
+            {/*{this.props.children}*/}
         </div>
 
       </div>

@@ -71,49 +71,49 @@ class NewPointView extends Component {
     render() {
 
         const isChecked = this.state.active;
-      return (
-          <div>
-              <div className='col-md-8'>
-                  <h2>{this.state.compTitle}</h2>
-                  <form onSubmit={this.handleSubmit}>
-                      <div className='form-group'>
-                          <input name='title' type='text' className='form-control'
-                                 placeholder='Название маршрута'
-                                 onChange={this.setValue}
-                                 value={this.state.title}
-                          />
-                      </div>
-                      <div className='form-group'>
+        return (
+            <div>
+                <div className='col-md-8'>
+                    <h2>{this.state.compTitle}</h2>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className='form-group'>
+                            <input name='title' type='text' className='form-control'
+                                   placeholder='Название маршрута'
+                                   onChange={this.setValue}
+                                   value={this.state.title}
+                            />
+                        </div>
+                        <div className='form-group'>
 
-                          <input name='code' type='text' className='form-control' placeholder='Код маршрута'
-                                 readOnly=''
-                                 onChange={this.setValue}
-                                 value={this.state.code}
-                          />
-                      </div>
-                      <div className='checkbox left'>
-                          <label>
-                              <input type='checkbox' name='active'
-                                     checked={isChecked}
-                                     // onChange={this.setValue}
-                                     onClick={this.setValue}
-                              />
-                              Точка активна
-                          </label>
-                      </div>
-                      <div className="right">
-                          <button
-                              type="submit"
-                              value="save" className="btn btn-default"
-                          >
-                              Сохранить
-                          </button>
-                      </div>
-                  </form>
-              </div>
-          </div>
-      );
-  }
+                            <input name='code' type='text' className='form-control' placeholder='Код маршрута'
+                                   readOnly=''
+                                   onChange={this.setValue}
+                                   value={this.state.code}
+                            />
+                        </div>
+                        <div className='checkbox left'>
+                            <label>
+                                <input type='checkbox' name='active'
+                                       checked={isChecked}
+                                    // onChange={this.setValue}
+                                       onClick={this.setValue}
+                                />
+                                активность
+                            </label>
+                        </div>
+                        <div className="right">
+                            <button
+                                type="submit"
+                                value="save" className="btn btn-default"
+                            >
+                                Сохранить
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        );
+    }
 }
 
 NewPointView.propTypes = propTypes;

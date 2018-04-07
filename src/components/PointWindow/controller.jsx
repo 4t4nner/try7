@@ -17,6 +17,9 @@ const propTypes = {
 class NewItemContainer extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        dataReceived: false
+    };
 
     this.handleClickSave = this.handleClickSave.bind(this);
     this.handleClickDelete = this.handleClickDelete.bind(this);
@@ -24,7 +27,9 @@ class NewItemContainer extends Component {
   }
 
     componentDidMount() {
-        this.props.fetchData('/db/points');
+      if(!this.props.dataReceived){
+          this.props.fetchData('/db/points');
+      }
     }
 
     componentWillReceiveProps(newProps) {
@@ -33,6 +38,12 @@ class NewItemContainer extends Component {
           itemType = itemType.substr(1,itemType.length-2);
           this.props.dispatch(setItemType(itemType));
       }
+    }
+    shouldComponentUpdate(nextProps, nextState){
+      if(this.state.dataReceived !== nextState.dataReceived) {
+          return false;
+      }
+      return true;
     }
 
     handleClickSave(item) {
@@ -70,6 +81,7 @@ NewItemContainer.propTypes = propTypes;
 function mapStateToProps(state) {
 
   return {
+      dataReceived : state.pointState.dataReceived,
       itemType : state.commonState.itemType,
       item: state.pointState.item
   };
@@ -82,6 +94,7 @@ function mergeProps(stateProps, dispatchProps) {
     return Object.assign({}, stateProps, {
         fetchData: (url) => dispatch(itemsFetchData(url)),
         dispatch: dispatch
+
     });
 }
 

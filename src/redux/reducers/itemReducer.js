@@ -4,6 +4,7 @@ import * as types from '../actions/action-types';
 const initialState = {
     items: [],
     item: false,
+    dataReceived: false,
     map: {},
     itemType : ''
 };
@@ -28,6 +29,7 @@ const itemReducer = function (state = initialState, action) {
                 map:{
                     action: 'placeAllItems'
                 },
+                dataReceived: true
             });
         }
 

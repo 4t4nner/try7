@@ -213,7 +213,7 @@ export function itemsIsLoading(bool) {
     };
 }
 
-export function itemsFetchData(url) {
+export function itemsFetchData(url,callback) {
     return (dispatch) => {
         // dispatch(itemsIsLoading(true));
 
@@ -231,6 +231,7 @@ export function itemsFetchData(url) {
             .then((response) => {
                 let debug = 1;
                 dispatch(response);
+                callback(response);
             })
             .catch(() => dispatch(itemsHasErrored(true)));
     };
