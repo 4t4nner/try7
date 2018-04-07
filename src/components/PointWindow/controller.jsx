@@ -36,7 +36,7 @@ class NewItemContainer extends Component {
     }
 
     handleClickSave(item) {
-        if (this.props.item) {
+        if (typeof(this.props.item.id) === 'number') {
             this.props.dispatch(editItem(item));
         } else {
             this.props.dispatch(addItem(item));
@@ -49,9 +49,8 @@ class NewItemContainer extends Component {
         }
     }
     handleSetOnMapClick(item) {
-        if (this.props.item) {
-            this.props.dispatch(setItemOnMap(item));
-        }
+        item.itemType = this.props.itemType;
+        this.props.dispatch(setItemOnMap(item));
     }
 
   render() {

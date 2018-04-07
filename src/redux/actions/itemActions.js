@@ -141,18 +141,31 @@ export function setItemType(itemType) {
         itemStateName: itemType + 'State'
     };
 }
+export function clearMapActions(itemType) {
+    return {
+        type: types.CLEAR_MAP_ACTIONS,
+        itemType : itemType,
+        itemStateName: itemType + 'State'
+    };
+}
 
 export function setItemOnMap(item) {
-    return  function (dispatch, getState) {
-        const state = getState();
-        const itemType = state.commonState.itemType;
+    return {
+        type: types.SET_ON_MAP,
+        item: item,
+        itemType: item.itemType,
+        // itemType : itemType,
+        // itemStateName: itemType + 'State'
+    };
+}
 
-        return dispatch({
-            type: types.SET_ITEM_TYPE,
-            item: item,
-            itemType : itemType,
-            itemStateName: itemType + 'State'
-        });
+export function setItemOnMapFinish(item) {
+    return {
+        type: types.SET_ON_MAP_FIN,
+        item: item,
+        itemType: item.itemType,
+        // itemType : itemType,
+        // itemStateName: itemType + 'State'
     };
 }
 

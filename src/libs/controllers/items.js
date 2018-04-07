@@ -33,20 +33,20 @@ export function findAll(req, res) {
             return res.status(500).send('Something went wrong getting the data');
         }
 
-       let itemsSend = items.map((item) => {
+        let itemsSend = items.map((item) => {
             let jItem = item.toJSON();
             return {
-                title:  jItem.title,
-                code:   jItem.code,
+                title: jItem.title,
+                code: jItem.code,
                 active: jItem.active,
-                id :    jItem.id
+                coord: jItem.coord,
+                id: jItem.id
             };
         });
         let itemType = res.req.originalUrl.split('/')[2];
-        itemType = itemType.substr(0,itemType.length-1);
-        return res.status(200).send( itemActions.getItemsSuccess(itemsSend,itemType));
-    }
-    );
+        itemType = itemType.substr(0, itemType.length - 1);
+        return res.status(200).send(itemActions.getItemsSuccess(itemsSend, itemType));
+    });
 }
 
 export function editItem (req, res) {
@@ -55,8 +55,6 @@ export function editItem (req, res) {
     itemType = itemType.substr(0,itemType.length-1);
     let Model = getModel(req.originalUrl);
     let arItem = req.body.arItem;
-
-
 
     arItem.hash = hashCode(JSON.stringify(arItem));
 

@@ -44,30 +44,22 @@ export function addRoutes(map, points) {
 export function addPoints(map, points) {
 
     points.map((point) => {
-        if(!point.coord || !point.title || !point.active){
+        if(!point.coord || !point.title){
             throw new Error('no point coordinates');
         }
+        if(!point.active){
+            console.log('point not active');
+            return [];
+        }
 
-        return new global.ymaps.GeoObject({
-            // Описание геометрии.
-            geometry: {
-                type: "Point",
-                coordinates: point.coord
-            },
-            // Свойства.
-            properties: {
-                // Контент метки.
-                uniqueId: 'point'.point.id,
-                iconContent: point.code,
-                hintContent: point.title
-            }
+        map.geoObjects.add(new ymaps.Placemark(point.coord, {
+            uniqueId: 'point' + ( point.id !== false ? point.id : 'new'),
+            balloonContent: point.title,
+            iconCaption: point.code
         }, {
-            // Опции.
-            // Иконка метки будет растягиваться под размер ее содержимого.
-            preset: 'islands#blackStretchyIcon',
-            // Метку можно перемещать.
-            draggable: false
-        });
+            preset: 'islands#icon',
+            iconColor: '#3b5998'
+        }));
     });
 }
 
@@ -75,31 +67,48 @@ export function addPoints(map, points) {
  *
  * @param map
  * @param point
- * @param getCoord - callback returns coord
+ * @param returnCoord - callback returns coord
  */
-export function placePoint(map, point, getCoord) {
+export function placePointOnClick(map, point, returnCoord = false) {
 
-    if(!point.id){
-        point.id = 'new';
+    if(typeof(point.id) === 'undefined'){
+        point.id = false;
     } else {
-        global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId = '+'point'+point.id).removeFromMap(map);
+        global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId == "point'+point.id+'"').removeFromMap(map);
         map.setCenter(point.coord);
     }
 
+    let oldOffset = window.pageYOffset;
     window.scrollTo(0,0);
 
-    map.cursor.push('arrow');
+    map.cursors.push('arrow');
 
-    let placePointOnClick = () => {
-        point.coord = getCoord(e.get('coords'));
+    let placePointOnClick = (e) => {
+        point.coord = e.get('coords');
 
-        addPoints([point]);
+        addPoints(map,[point]);
 
         map.events.remove('click',placePointOnClick,this);
 
+        returnCoord(point.coord);
+
+
+        map.cursors.push('grab');
+        window.scrollTo(0,oldOffset);
         return point;
     };
 
     map.events.add('click',placePointOnClick,this);
 }
 
+export function editPoint(map, point, callback = false) {
+    global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId == "point'+point.id+'"').removeFromMap(map);
+    addPoints(map,[point]);
+}
+export function confirmPoint(map, point, callback = false) {
+    global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId == "pointnew"').removeFromMap(map);
+    addPoints(map,[point]);
+}
+export function deletePoint(map, point, callback = false) {
+    global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId == "point'+point.id+'"').removeFromMap(map);
+}

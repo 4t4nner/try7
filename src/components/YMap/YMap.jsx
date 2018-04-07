@@ -3,6 +3,8 @@ import React, {Component, PropTypes} from 'react';
 import {connect} from 'react-redux';
 import * as YMUtils from '../../utils/ymaps';
 
+import {setItemOnMapFinish,clearMapActions} from 'redux/actions/itemActions';
+
 const mapState = {
     // controls: ['default'],
     cursors: ['arrow'],
@@ -30,12 +32,6 @@ class YMap extends Component {
 
     componentDidMount() {
         console.log('YMap : componentDidMount', arguments);
-        YMUtils.init(this.props,
-            function (map) {
-                this.setState({map: map,update: false});
-            }.bind(this),
-            []
-        );
     }
 
     componentWillReceiveProps(newProps) {
@@ -46,8 +42,50 @@ class YMap extends Component {
         if(newProps.itemType !== this.props.itemType){
             return;
         }
-        if(newProps.action){
+        if (newProps.points.map.action) {
+            switch (newProps.points.map.action){
+                case 'setItemCoordinates': {
+                    YMUtils.placePointOnClick(this.state.map, newProps.points.map.item, function (coord) {
+                        this.props.dispatch(setItemOnMapFinish(
+                            Object.assign({},
+                                newProps.points.map.item,
+                                {coord: coord})
+                        ));
 
+                    }.bind(this));
+                    break;
+                }
+                case 'confirmItem': {
+                    YMUtils.confirmPoint(this.state.map,newProps.points.map.item);
+                    this.props.dispatch(clearMapActions(this.props.itemType));
+                    break;
+                }
+                case 'editItem': {
+                    YMUtils.editPoint(this.state.map,newProps.points.map.item);
+                    this.props.dispatch(clearMapActions(this.props.itemType));
+                    break;
+                }
+                case 'deleteItem': {
+                    YMUtils.deletePoint(this.state.map,newProps.points.map.item);
+                    this.props.dispatch(clearMapActions(this.props.itemType));
+                    break;
+                }
+                case 'placeAllItems': {
+                    // YMUtils.addPoints(this.state.map,newProps.points.items);
+
+                    YMUtils.init(newProps,
+                        function (map) {
+                            this.setState({map: map,update: false});
+                            this.props.dispatch(clearMapActions(this.props.itemType));
+                        }.bind(this),
+                        []
+                    );
+                    break;
+                }
+                default:{
+                    console.log('not handled action');
+                }
+            }
         }
     }
 

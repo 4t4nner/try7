@@ -23,7 +23,12 @@ const itemReducer = function (state = initialState, action) {
         }
 
         case types.GET_ITEMS_SUCCESS: {
-            return Object.assign({}, state, {items: action.items});
+            return Object.assign({}, state, {
+                items: action.items,
+                map:{
+                    action: 'placeAllItems'
+                },
+            });
         }
 
         case types.ADD_ITEM_SUCCESS: {
@@ -32,9 +37,10 @@ const itemReducer = function (state = initialState, action) {
             return Object.assign({}, state, {
                 items: newItems,
                 item:action.item,
-                map:{action: {
-                    addItem: action.item
-                }},
+                map:{
+                    action: 'confirmItem',
+                    item: action.item
+                },
             });
         }
 
@@ -48,9 +54,10 @@ const itemReducer = function (state = initialState, action) {
             return Object.assign({}, state, {
                 items: arNewItems,
                 item: action.item,
-                map:{action: {
-                    editItem: action.item
-                }},
+                map:{
+                    action: 'editItem',
+                    item: action.item
+                },
             });
         }
         case types.DELETE_ITEM_SUCCESS: {
@@ -60,9 +67,10 @@ const itemReducer = function (state = initialState, action) {
             return Object.assign({}, state, {
                 items: arNewItems,
                 item: false,
-                map:{action: {
-                    deleteItem: action.item
-                }},
+                map:{
+                    action: 'deleteItem',
+                    item: action.item
+                },
             });
         }
 
@@ -70,22 +78,25 @@ const itemReducer = function (state = initialState, action) {
             return Object.assign({}, state, {item: false});
         }
 
-        case types.SET_ON_MAP: {
-            return Object.assign({}, state, {
-                map:{action: {
-                    setPointOnMap: action.item
-                }},
-            });
-        }
-
         case types.SET_EDIT_ITEM_STATE: {
             return Object.assign({}, state, {item: action.item});
         }
-        case types.SET_MAP_POINT: {
+        case types.SET_ON_MAP: {
             return Object.assign({}, state, {
-                map:{action: {
-                    setItemCoordinates: action.item
-                }},
+                map:{
+                    action: 'setItemCoordinates',
+                    item: action.item},
+            });
+        }
+        case types.SET_ON_MAP_FIN: {
+            return Object.assign({}, state, {
+                map: {},
+                item: action.item
+            });
+        }
+        case types.CLEAR_MAP_ACTIONS: {
+            return Object.assign({}, state, {
+                map: {}
             });
         }
 
