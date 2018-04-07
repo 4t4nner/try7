@@ -71,7 +71,7 @@ export function addPoints(map, points) {
  */
 export function placePointOnClick(map, point, returnCoord = false) {
 
-    if(typeof(point.id) === 'undefined'){
+    if(typeof(point.id) !== 'number'){
         point.id = false;
     } else {
         global.ymaps.geoQuery(map.geoObjects).search('properties.uniqueId == "point'+point.id+'"').removeFromMap(map);

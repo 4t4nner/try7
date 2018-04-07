@@ -55,7 +55,7 @@ class NewPointView extends Component {
                     title: '',
                     code: '',
                     id: null,
-                    active: false
+                    active: true
                 }
 
             }
@@ -111,7 +111,7 @@ class NewPointView extends Component {
                         <input type="hidden"/>
                         <div className='form-group '>
                             <input name='title' type='text' className='form-control'
-                                   placeholder='Название маршрута'
+                                   placeholder='Название'
                                    onChange={this.setValue}
                                    value={this.state.point.title}
                                    // value={1}
